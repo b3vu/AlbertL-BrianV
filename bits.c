@@ -171,7 +171,9 @@ NOTES:
  *   Rating: 1
  */
 int bitAnd(int x, int y) {
-  return ~(~x|~y);
+  /*negates both variables, does the OR operation on them and then negates the
+	result of the OR operation*/
+	return ~(~x|~y);
 }
 /* 
  * getByte - Extract byte n from word x
@@ -182,6 +184,7 @@ int bitAnd(int x, int y) {
  *   Rating: 2
  */
 int getByte(int x, int n) {
+	/*converts bytes to bits using 8n and does an AND operation to mask*/
   return (x >> 8n) & 0xFF;
 }
 /* 
