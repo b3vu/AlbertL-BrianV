@@ -11,6 +11,7 @@
 ~MSle0~/* 
 
 # Command Line History (newest to oldest):
+:wq
 :q
 :w
 :set nu
@@ -28,6 +29,7 @@
 
 # File marks:
 '0  176  9  ~/bits.c
+'1  1  0  ~/bits.c
 
 # Jumplist (newest first):
 -'  176  9  ~/bits.c

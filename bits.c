@@ -173,7 +173,7 @@ int getByte(int x, int n) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-  return 2;
+  return 3;
 }
 /*
  * bitCount - returns count of number of 1's in word
