@@ -151,7 +151,9 @@ NOTES:
  *   Rating: 1
  */
 int bitAnd(int x, int y) {
-  return x & y;
+  /*negates both variables, does the OR operation on them and then negates the
+	result of the OR operation*/
+	return ~(~x|~y);
 }
 /* 
  * getByte - Extract byte n from word x
@@ -162,6 +164,7 @@ int bitAnd(int x, int y) {
  *   Rating: 2
  */
 int getByte(int x, int n) {
+	/*converts bytes to bits using 8n and does an AND operation to mask*/
   return (x >> 8n) & 0xFF;
 }
 /* 
@@ -173,7 +176,7 @@ int getByte(int x, int n) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-  return 3;
+  return 2;
 }
 /*
  * bitCount - returns count of number of 1's in word
@@ -183,9 +186,17 @@ int logicalShift(int x, int n) {
  *   Rating: 4
  */
 int bitCount(int x) {
-  return 2;
+/*Uses divide and conquer to count the number of bits.
+ *Adds the bits and places the sum in the
+ *Lower bits of the 2,4,8,16,32  positions.
+ */
+  x = (x & 0x55555555) + ((x>>1) & (0x55555555);
+  x = (x & 0x33333333) + ((x>>2) & (0x33333333);
+  x = (x & 0x0F0F0F0F) + ((x>>4) & (0x0F0F0F0F);
+  x = (x & 0x00FF00FF) + ((x>>8) & (0x00FF00FF);
+  x = (x & 0x0000FFFF) + ((x>>16) & (0x0000FFFF);
+  return x;
 }
-/* 
  * bang - Compute !x without using !
  *   Examples: bang(3) = 0, bang(0) = 1
  *   Legal ops: ~ & ^ | + << >>
@@ -237,7 +248,12 @@ int divpwr2(int x, int n) {
  *   Rating: 2
  */
 int negate(int x) {
-  return 2;
+/*
+ * Uses 2's complement conversion.
+ * First finds the negation of x then adds 1 to the result.
+ * For results outisde the signed int range, this returns x.
+ */
+  return (~x)+1;
 }
 /* 
  * isPositive - return 1 if x > 0, return 0 otherwise 
@@ -247,7 +263,13 @@ int negate(int x) {
  *   Rating: 3
  */
 int isPositive(int x) {
-  return 2;
+/*
+ * Arithematically shifts x 32 bits to the right to convert negatives into
+ * all 1s and positives into all 0s.
+ * Use a mask for the least significant bit and uses xor operator to get the 
+ * negation of the least significant bit.
+ */
+  return (x>>32)^1;
 }
 /* 
  * isLessOrEqual - if x <= y  then return 1, else return 0 
@@ -257,7 +279,13 @@ int isPositive(int x) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-  return 2;
+/*
+ * Interpretted as x - y <= 0. Add x and the negation of y so that if x<=y,
+ * the result will be negative (used negation rather than the 2's complement
+ * opposite so that when x = y, the result is -1). Shift the result so that the  * most significant bit becomes the least significant bit and use a mask to 
+ * extract result.
+ */
+  return ((x+(~y))>>31)&1;
 }
 /*
  * ilog2 - return floor(log base 2 of x), where x > 0
@@ -309,4 +337,3 @@ unsigned float_i2f(int x) {
 unsigned float_twice(unsigned uf) {
   return 2;
 }
-
